@@ -1,0 +1,23 @@
+# ============================================================
+# Dépendances de PRODUCTION uniquement.
+#
+# Absents volontairement par rapport à requirements.txt :
+#   - matplotlib / seaborn : servent à l'EDA et au rapport, pas à servir
+#     des prédictions -> ~80 Mo d'image en moins
+#   - pytest / httpx       : outillage de test
+#   - pandas               : utilisé par le pipeline d'entraînement ; l'API
+#                            manipule des listes Python, pas des DataFrames
+#
+# Résultat : image Docker nettement plus légère, surface d'attaque réduite,
+# démarrage du conteneur plus rapide.
+#
+# Les versions sont FIGÉES : une image reconstruite dans 6 mois produira
+# exactement les mêmes prédictions (reproductibilité).
+# ============================================================
+
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+pydantic==2.10.2
+scikit-learn==1.5.2
+numpy==2.1.3
+joblib==1.4.2

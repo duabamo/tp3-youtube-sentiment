@@ -1,0 +1,19 @@
+# Tout ce qui ne doit JAMAIS entrer dans l'image de production
+data/
+notebooks/
+tests/
+reports/
+logs/
+chrome-extension/
+src/
+docs/
+.git/
+.github/
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.ipynb
+.pytest_cache/
+requirements.txt
+README.md
