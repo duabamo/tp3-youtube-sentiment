@@ -2,8 +2,15 @@
 # PHASE 6 — Image Docker de production (Hugging Face Spaces)
 #
 # Bonnes pratiques appliquées :
-#   1. image de base légère      : python:3.10-slim (~45 Mo contre ~350 Mo
-#                                  pour python:3.10 complet)
+#   1. image de base légère      : variante -slim (~45 Mo contre ~350 Mo
+#                                  pour l'image python complète)
+#
+#      NB : l'énoncé suggère python:3.10-slim. J'utilise 3.13-slim parce que
+#      scikit-learn 1.9.1 — la version qui a produit models/sentiment_model.joblib
+#      — exige Python >= 3.11. Charger un modèle sérialisé avec une version
+#      différente de scikit-learn donne au mieux un avertissement, au pire des
+#      prédictions fausses : l'image doit donc refléter l'environnement
+#      d'entraînement, pas l'inverse. Le principe (image slim) est respecté.
 #   2. optimisation des layers   : requirements.txt copié AVANT le code, donc
 #                                  le layer `pip install` reste en cache tant
 #                                  que les dépendances ne changent pas
@@ -16,7 +23,7 @@
 #   6. HEALTHCHECK               : l'orchestrateur sait si le conteneur est vivant
 # =============================================================================
 
-FROM python:3.10-slim
+FROM python:3.13-slim
 
 # Variables d'environnement Python
 ENV PYTHONUNBUFFERED=1 \

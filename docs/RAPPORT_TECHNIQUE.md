@@ -46,7 +46,7 @@ Le système se décompose en quatre blocs :
 | Frontend | Extension Chrome Manifest V3 | Extraire les commentaires du DOM, afficher les résultats |
 | Backend | FastAPI + Uvicorn | Exposer `/health` et `/predict_batch`, valider les entrées |
 | ML Engine | scikit-learn — TF-IDF + Logistic Regression | Classifier chaque commentaire en 3 classes |
-| Déploiement | Docker sur Hugging Face Spaces | Héberger l'API de façon reproductible |
+| Déploiement | Docker sur GitHub Codespaces | Héberger l'API de façon reproductible |
 
 ### 1.3 Flux fonctionnel
 
@@ -91,7 +91,7 @@ dont le biais est documenté en section 9.
                            lots de 100 · CORS       │
                            timeout 20 s             ▼
 ┌───────────────────────────────────────────────────────────────┐
-│ HUGGING FACE SPACES — conteneur Docker, port 7860             │
+│ GITHUB CODESPACES — conteneur Docker, port 7860 public        │
 │                                                               │
 │   ┌─────────────────────────────────────────────────────┐     │
 │   │ FastAPI — app_api.py                                │     │
@@ -424,15 +424,21 @@ Cinq bonnes pratiques appliquées :
 
 | Pratique | Gain |
 |---|---|
-| `python:3.10-slim` | ~45 Mo contre ~350 Mo pour l'image complète |
+| Base `-slim` (`python:3.13-slim`) | ~45 Mo contre ~350 Mo pour l'image complète |
 | Copie sélective (3 fichiers) | Pas de `data/`, `src/`, `tests/`, `reports/` |
 | `--no-cache-dir` | ~50-100 Mo de wheels en moins |
 | Dépendances copiées avant le code | Layer `pip install` conservé en cache |
-| Utilisateur non-root | Exigé par Hugging Face, bonne pratique de sécurité |
+| Utilisateur non-root | Bonne pratique de sécurité, exigée par la plupart des plateformes |
 
 Alpine Linux (~25 Mo) a été écarté : musl libc y rend inutilisables les wheels
 précompilées de numpy et scikit-learn, imposant une recompilation de 15 minutes
 pour une image finale souvent plus lourde.
+
+L'énoncé suggère `python:3.10-slim`. J'ai retenu **3.13-slim** : scikit-learn 1.9.1,
+la version qui a produit le `.joblib`, exige Python ≥ 3.11. L'image doit refléter
+l'environnement d'entraînement, sinon le modèle se recharge sous une version
+différente — avertissement au mieux, prédictions fausses au pire. Le principe
+(image slim) est respecté, seule la version de Python change.
 
 `requirements-prod.txt` ne retient que 6 paquets sur 13 : pandas, matplotlib,
 seaborn, pytest, httpx et requests sont absents, soit environ 150 Mo économisés.
@@ -681,7 +687,36 @@ négatif.
 **Solution de fond.** Réentraîner sur un corpus YouTube annoté. La limite est
 documentée dans le README plutôt que dissimulée.
 
-### 9.5 Deux pièges propres à l'extension Chrome
+### 9.5 Hugging Face Spaces devenu payant en cours de projet
+
+**Problème.** L'énoncé impose un déploiement sur Hugging Face Spaces avec le SDK
+Docker. Au moment de déployer, la création du Space échoue :
+
+> *Static Spaces are free for everyone, but hosting Gradio and Docker Spaces on
+> free cpu-basic requires a PRO subscription.*
+
+Hugging Face a restreint les Spaces Gradio et Docker sur CPU Basic aux comptes
+PRO. Seuls les *Static Spaces* restent gratuits, et ils ne peuvent pas exécuter
+de code Python : ils ne servent que des fichiers HTML.
+
+**Solution retenue.** Déployer sur **GitHub Codespaces** : l'image Docker y est
+construite et exécutée, et le port 7860 est exposé publiquement
+(`https://<codespace>-7860.app.github.dev`). Le projet gagne un
+`.devcontainer/devcontainer.json` qui provisionne Python 3.13, Docker-in-Docker
+et les dépendances.
+
+**Ce que ce changement n'a pas coûté.** Ni `app_api.py`, ni le `Dockerfile`, ni
+`requirements-prod.txt` n'ont été modifiés : seul `host_permissions` de
+l'extension s'élargit à `https://*.app.github.dev/*`. C'est le bénéfice de la
+containerisation — l'application est indépendante de la plateforme, et changer
+de cible se réduit à changer l'endroit où l'image est lancée.
+
+**Limite assumée.** Codespaces est un environnement de développement, pas une
+plateforme d'hébergement : l'API n'est joignable que pendant que le Codespace
+tourne, et il s'arrête après 30 minutes d'inactivité. La procédure Hugging Face
+reste documentée et fonctionnerait telle quelle avec un compte PRO.
+
+### 9.6 Deux pièges propres à l'extension Chrome
 
 **Content script non injecté.** Si la page YouTube était ouverte *avant* l'installation de
 l'extension, `chrome.tabs.sendMessage` échoue avec « Could not establish connection », et

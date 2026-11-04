@@ -1,49 +1,49 @@
 {
-  "accuracy": 0.8933,
-  "f1_macro": 0.8845,
-  "f1_weighted": 0.8926,
+  "accuracy": 0.893,
+  "f1_macro": 0.8844,
+  "f1_weighted": 0.8923,
   "par_classe": {
     "négatif": {
-      "precision": 0.8361,
-      "recall": 0.8111,
-      "f1-score": 0.8234,
+      "precision": 0.8367,
+      "recall": 0.8117,
+      "f1-score": 0.824,
       "support": 1641.0
     },
     "neutre": {
-      "precision": 0.8938,
-      "recall": 0.9683,
-      "f1-score": 0.9295,
+      "precision": 0.8937,
+      "recall": 0.9675,
+      "f1-score": 0.9291,
       "support": 2398.0
     },
     "positif": {
-      "precision": 0.9234,
-      "recall": 0.8789,
-      "f1-score": 0.9006,
+      "precision": 0.9224,
+      "recall": 0.8786,
+      "f1-score": 0.9,
       "support": 3139.0
     }
   },
   "matrice_confusion": [
     [
-      1331,
-      128,
-      182
+      1332,
+      124,
+      185
     ],
     [
-      29,
-      2322,
+      31,
+      2320,
       47
     ],
     [
-      232,
-      148,
-      2759
+      229,
+      152,
+      2758
     ]
   ],
   "latence": {
-    "moyenne_ms": 1.27,
-    "mediane_ms": 1.26,
-    "p95_ms": 1.49,
-    "par_commentaire_ms": 0.025
+    "moyenne_ms": 1.28,
+    "mediane_ms": 1.28,
+    "p95_ms": 1.48,
+    "par_commentaire_ms": 0.026
   },
   "cas_limites": {
     "texte très court": {
@@ -73,19 +73,19 @@
   },
   "criteres_enonce": {
     "accuracy >= 0.80": {
-      "valeur": 0.8933,
+      "valeur": 0.893,
       "ok": true
     },
     "F1 par classe > 0.75": {
       "valeur": {
-        "négatif": 0.8234,
-        "neutre": 0.9295,
-        "positif": 0.9006
+        "négatif": 0.824,
+        "neutre": 0.9291,
+        "positif": 0.9
       },
       "ok": true
     },
     "latence batch 50 < 100 ms": {
-      "valeur": 1.27,
+      "valeur": 1.28,
       "ok": true
     }
   },

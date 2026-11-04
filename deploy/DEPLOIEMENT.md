@@ -53,7 +53,14 @@ git commit -m "docs: README et rapport technique"
 
 ---
 
-## 2. Tester l'image Docker en local (avant de déployer)
+## 2. Tester l'image Docker en local — ÉTAPE OPTIONNELLE
+
+**Docker n'a pas besoin d'être installé sur ta machine.** C'est Hugging Face qui
+construit l'image sur ses serveurs à partir du `Dockerfile` quand tu pousses le
+code. Passe directement à l'étape 3.
+
+Cette étape ne sert que si le build HF échoue plusieurs fois : tester en local
+donne un retour en 30 secondes au lieu de 3 minutes par tentative.
 
 ```bash
 docker build -t yt-sentiment-api .

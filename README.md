@@ -27,7 +27,7 @@ retire est subjective, et rien n'est quantifiable pour piloter une stratégie
 | Frontend | Extension Chrome MV3 (JS, HTML, CSS) | Extraction des commentaires + visualisation |
 | Backend | FastAPI + Uvicorn | API REST `/health` et `/predict_batch` |
 | ML Engine | scikit-learn — TF-IDF + Logistic Regression | Classification en 3 classes |
-| Déploiement | Docker sur Hugging Face Spaces | Hébergement de l'API |
+| Déploiement | Docker sur GitHub Codespaces | Hébergement de l'API |
 | Versioning | Git + GitHub | Code, modèle, documentation |
 
 Labels : `-1` négatif · `0` neutre · `1` positif
@@ -53,7 +53,7 @@ Labels : `-1` négatif · `0` neutre · `1` positif
                                              │    (lots de 100, CORS)
                                              ▼
 ┌──────────────────────────────────────────────────────────────┐
-│  HUGGING FACE SPACES — conteneur Docker (port 7860)          │
+│  GITHUB CODESPACES — conteneur Docker (port 7860, public)    │
 │                                                              │
 │  ┌────────────────────────────────────────────────────────┐  │
 │  │  FastAPI (app_api.py)                                  │  │
@@ -106,6 +106,9 @@ tp3-youtube-sentiment/
 
 ## 3. Installation et utilisation
 
+> **Démarrage pas à pas sous Windows :** voir [`GUIDE_DEMARRAGE.md`](GUIDE_DEMARRAGE.md),
+> qui couvre l'installation, les erreurs fréquentes et l'ordre de lancement.
+
 ### Prérequis
 
 Python 3.10+, Git, Google Chrome.
@@ -122,7 +125,14 @@ source venv/bin/activate          # Windows : venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### Pipeline complet (dans l'ordre)
+### Pipeline complet — en une commande
+
+```bash
+python run_all.py            # les 6 étapes enchaînées (~5 min)
+python run_all.py --fast     # sans GridSearchCV (~1 min, modèle moins bon)
+```
+
+### Pipeline complet — étape par étape
 
 ```bash
 python -m src.data.download_data     # télécharge data/raw/reddit.csv + stats
@@ -171,7 +181,15 @@ API_URL=https://VOTRE-USER-yt-sentiment-api.hf.space python -m tests.test_integr
 
 ### Déploiement
 
-Procédure complète dans [`deploy/DEPLOIEMENT.md`](deploy/DEPLOIEMENT.md).
+Procédure complète dans
+[`deploy/DEPLOIEMENT_CODESPACES.md`](deploy/DEPLOIEMENT_CODESPACES.md) :
+l'image Docker est construite et exécutée **dans un GitHub Codespace**, et le
+port 7860 est exposé publiquement. Aucune installation de Docker sur la machine
+locale n'est nécessaire.
+
+Hugging Face Spaces ayant restreint les Docker Spaces aux comptes PRO, la
+procédure correspondante est conservée en annexe dans
+[`deploy/DEPLOIEMENT.md`](deploy/DEPLOIEMENT.md).
 
 ```bash
 docker build -t yt-sentiment-api .
@@ -242,7 +260,8 @@ résumé dans le presse-papiers ou exportent l'analyse complète en JSON.
 
 - [`docs/RAPPORT_TECHNIQUE.md`](docs/RAPPORT_TECHNIQUE.md) — rapport technique détaillé
 - [`docs/REPONSES_QUESTIONS.md`](docs/REPONSES_QUESTIONS.md) — réponses aux questions de réflexion des 6 phases
-- [`deploy/DEPLOIEMENT.md`](deploy/DEPLOIEMENT.md) — déploiement GitHub + Hugging Face
+- [`deploy/DEPLOIEMENT_CODESPACES.md`](deploy/DEPLOIEMENT_CODESPACES.md) — **déploiement GitHub + Codespaces (procédure principale)**
+- [`deploy/DEPLOIEMENT.md`](deploy/DEPLOIEMENT.md) — variante Hugging Face Spaces (nécessite un compte PRO)
 - `reports/metrics.json` — toutes les métriques au format machine
 
 ---

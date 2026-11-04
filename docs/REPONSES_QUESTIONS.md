@@ -563,11 +563,14 @@ Cinq techniques, appliquées dans le `Dockerfile` :
 
 | Base | Taille |
 |---|---|
-| `python:3.10` | ~350 Mo |
-| **`python:3.10-slim`** | **~45 Mo** |
-| `python:3.10-alpine` | ~25 Mo |
+| `python:3.13` | ~350 Mo |
+| **`python:3.13-slim`** | **~45 Mo** |
+| `python:3.13-alpine` | ~25 Mo |
 
-J'ai retenu `slim`. Alpine est plus petite, mais utilise musl libc au lieu de
+J'ai retenu `slim`. L'énoncé suggérait la 3.10 ; j'utilise la **3.13** parce que
+scikit-learn 1.9.1 — la version qui a produit le `.joblib` — exige Python ≥ 3.11.
+L'image doit refléter l'environnement d'entraînement, sinon le modèle se recharge
+sous une version différente de scikit-learn. Alpine est plus petite, mais utilise musl libc au lieu de
 glibc : les wheels précompilées de numpy et scikit-learn n'y fonctionnent pas,
 et il faut tout recompiler — build de 15 minutes, et une image finale souvent
 *plus grosse* à cause de la chaîne de compilation.

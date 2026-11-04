@@ -13,6 +13,8 @@
   "host_permissions": [
     "https://*.youtube.com/*",
     "http://localhost:8000/*",
+    "http://localhost:7860/*",
+    "https://*.app.github.dev/*",
     "https://*.hf.space/*"
   ],
 

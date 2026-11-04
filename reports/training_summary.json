@@ -1,24 +1,24 @@
 {
   "comparaison_modeles": {
     "LogisticRegression": {
-      "f1_macro": 0.8346,
-      "accuracy": 0.8445,
-      "fit_time_s": 6.2
+      "f1_macro": 0.8322,
+      "accuracy": 0.8427,
+      "fit_time_s": 4.2
     },
     "LinearSVC": {
-      "f1_macro": 0.8676,
-      "accuracy": 0.8789,
-      "fit_time_s": 3.2
+      "f1_macro": 0.8673,
+      "accuracy": 0.8788,
+      "fit_time_s": 2.2
     },
     "MultinomialNB": {
-      "f1_macro": 0.4555,
+      "f1_macro": 0.4554,
       "accuracy": 0.5685,
-      "fit_time_s": 2.4
+      "fit_time_s": 1.9
     },
     "RandomForest": {
-      "f1_macro": 0.7598,
-      "accuracy": 0.7921,
-      "fit_time_s": 107.0
+      "f1_macro": 0.7573,
+      "accuracy": 0.792,
+      "fit_time_s": 19.6
     }
   },
   "meilleurs_hyperparametres": {
@@ -26,27 +26,27 @@
     "tfidf__min_df": "2",
     "tfidf__ngram_range": "(1, 1)"
   },
-  "f1_macro_cv": 0.8727,
+  "f1_macro_cv": 0.8723,
   "test": {
-    "accuracy": 0.8933,
-    "f1_macro": 0.8845,
+    "accuracy": 0.893,
+    "f1_macro": 0.8844,
     "par_classe": {
       "négatif": {
-        "precision": 0.8361,
-        "recall": 0.8111,
-        "f1-score": 0.8234,
+        "precision": 0.8367,
+        "recall": 0.8117,
+        "f1-score": 0.824,
         "support": 1641.0
       },
       "neutre": {
-        "precision": 0.8938,
-        "recall": 0.9683,
-        "f1-score": 0.9295,
+        "precision": 0.8937,
+        "recall": 0.9675,
+        "f1-score": 0.9291,
         "support": 2398.0
       },
       "positif": {
-        "precision": 0.9234,
-        "recall": 0.8789,
-        "f1-score": 0.9006,
+        "precision": 0.9224,
+        "recall": 0.8786,
+        "f1-score": 0.9,
         "support": 3139.0
       }
     }
