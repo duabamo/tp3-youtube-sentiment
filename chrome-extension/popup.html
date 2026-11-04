@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>YouTube Sentiment Analyzer</title>
+  <link rel="stylesheet" href="css/popup.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <span class="logo">YT</span>
+      <div>
+        <h1>Sentiment Analyzer</h1>
+        <p class="sub" id="api-status"><span class="dot dot--idle"></span>Vérification de l'API…</p>
+      </div>
+    </div>
+    <button id="theme-toggle" class="icon-btn" title="Mode sombre / clair">◐</button>
+  </header>
+
+  <section class="controls">
+    <label class="field">
+      <span>Commentaires à analyser</span>
+      <select id="limit">
+        <option value="25">25</option>
+        <option value="50" selected>50</option>
+        <option value="100">100</option>
+        <option value="200">200</option>
+      </select>
+    </label>
+    <button id="analyze" class="primary">Analyser les commentaires</button>
+  </section>
+
+  <!-- État : chargement -->
+  <section id="loading" class="state hidden">
+    <div class="spinner"></div>
+    <p id="loading-text">Extraction des commentaires…</p>
+  </section>
+
+  <!-- État : erreur -->
+  <section id="error" class="state hidden">
+    <p class="error-title">Une erreur est survenue</p>
+    <p id="error-text" class="error-text"></p>
+    <button id="retry" class="secondary">Réessayer</button>
+  </section>
+
+  <!-- État : résultats -->
+  <main id="results" class="hidden">
+    <div class="video-info">
+      <p id="video-title" class="video-title"></p>
+      <p id="video-channel" class="video-channel"></p>
+    </div>
+
+    <div class="score-card">
+      <div class="score-value" id="score-global">0.00</div>
+      <div class="score-meta">
+        <span id="score-label">—</span>
+        <span class="score-hint">score global (-1 → +1)</span>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat stat--pos">
+        <span class="stat-pct" id="pct-pos">0%</span>
+        <span class="stat-name">Positif</span>
+        <span class="stat-count" id="n-pos">0</span>
+      </div>
+      <div class="stat stat--neu">
+        <span class="stat-pct" id="pct-neu">0%</span>
+        <span class="stat-name">Neutre</span>
+        <span class="stat-count" id="n-neu">0</span>
+      </div>
+      <div class="stat stat--neg">
+        <span class="stat-pct" id="pct-neg">0%</span>
+        <span class="stat-name">Négatif</span>
+        <span class="stat-count" id="n-neg">0</span>
+      </div>
+    </div>
+
+    <div class="chart-block">
+      <p class="block-title">Répartition</p>
+      <div class="bar" id="bar-chart" role="img" aria-label="Répartition des sentiments">
+        <div class="bar-seg bar-seg--pos" id="bar-pos"></div>
+        <div class="bar-seg bar-seg--neu" id="bar-neu"></div>
+        <div class="bar-seg bar-seg--neg" id="bar-neg"></div>
+      </div>
+      <canvas id="donut" width="320" height="150"></canvas>
+    </div>
+
+    <div class="list-block">
+      <div class="list-head">
+        <p class="block-title">Commentaires</p>
+        <div class="filters" id="filters">
+          <button class="chip chip--active" data-filter="all">Tous</button>
+          <button class="chip" data-filter="1">Positif</button>
+          <button class="chip" data-filter="0">Neutre</button>
+          <button class="chip" data-filter="-1">Négatif</button>
+        </div>
+      </div>
+      <ul id="comment-list" class="comment-list"></ul>
+    </div>
+
+    <footer class="footer">
+      <button id="copy" class="secondary">Copier le résumé</button>
+      <button id="export" class="secondary">Exporter en JSON</button>
+      <span id="timing" class="timing"></span>
+    </footer>
+  </main>
+
+  <script src="js/popup.js"></script>
+</body>
+</html>
