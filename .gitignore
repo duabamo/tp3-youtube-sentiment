@@ -1,0 +1,54 @@
+# ============================================================
+# .gitignore — projet MLOps
+# Règle d'or : on versionne le CODE, pas les DONNÉES ni les BINAIRES
+# ============================================================
+
+# --- Environnements virtuels ---
+venv/
+.venv/
+env/
+ENV/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# --- Données (volumineuses, régénérables par le pipeline) ---
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# --- Modèles entraînés (binaires lourds) ---
+# NB : on garde les .joblib du modèle final pour le déploiement HF,
+# mais pas les expérimentations intermédiaires.
+models/experiments/
+*.pkl
+
+# --- Logs ---
+logs/*
+!logs/.gitkeep
+*.log
+
+# --- Secrets / credentials ---
+.env
+.env.*
+*.key
+*.pem
+secrets.json
+config.local.*
+
+# --- IDE / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

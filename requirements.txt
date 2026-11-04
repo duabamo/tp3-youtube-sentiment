@@ -1,0 +1,24 @@
+# ============================================================
+# Dépendances de DÉVELOPPEMENT (entraînement + API + tests)
+# TP3 - Analyse de sentiment YouTube
+# ============================================================
+
+# --- Data & ML ---
+pandas==2.2.3
+numpy==2.1.3
+scikit-learn==1.5.2
+joblib==1.4.2
+
+# --- Visualisation (EDA + rapport de performance) ---
+matplotlib==3.9.2
+seaborn==0.13.2
+
+# --- API REST ---
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+pydantic==2.10.2
+
+# --- Tests ---
+pytest==8.3.4
+httpx==0.28.0
+requests==2.32.3
