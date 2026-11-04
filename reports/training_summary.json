@@ -1,0 +1,55 @@
+{
+  "comparaison_modeles": {
+    "LogisticRegression": {
+      "f1_macro": 0.8346,
+      "accuracy": 0.8445,
+      "fit_time_s": 6.2
+    },
+    "LinearSVC": {
+      "f1_macro": 0.8676,
+      "accuracy": 0.8789,
+      "fit_time_s": 3.2
+    },
+    "MultinomialNB": {
+      "f1_macro": 0.4555,
+      "accuracy": 0.5685,
+      "fit_time_s": 2.4
+    },
+    "RandomForest": {
+      "f1_macro": 0.7598,
+      "accuracy": 0.7921,
+      "fit_time_s": 107.0
+    }
+  },
+  "meilleurs_hyperparametres": {
+    "clf__C": "10.0",
+    "tfidf__min_df": "2",
+    "tfidf__ngram_range": "(1, 1)"
+  },
+  "f1_macro_cv": 0.8727,
+  "test": {
+    "accuracy": 0.8933,
+    "f1_macro": 0.8845,
+    "par_classe": {
+      "négatif": {
+        "precision": 0.8361,
+        "recall": 0.8111,
+        "f1-score": 0.8234,
+        "support": 1641.0
+      },
+      "neutre": {
+        "precision": 0.8938,
+        "recall": 0.9683,
+        "f1-score": 0.9295,
+        "support": 2398.0
+      },
+      "positif": {
+        "precision": 0.9234,
+        "recall": 0.8789,
+        "f1-score": 0.9006,
+        "support": 3139.0
+      }
+    }
+  },
+  "n_features": 22575
+}

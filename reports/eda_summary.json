@@ -1,0 +1,68 @@
+{
+  "n_comments": 35889,
+  "distribution": {
+    "négatif": 8203,
+    "neutre": 11991,
+    "positif": 15695
+  },
+  "imbalance_ratio": 1.913,
+  "longueur_mots": {
+    "moyenne": 30.3,
+    "mediane": 14,
+    "p95": 103,
+    "max": 1307
+  },
+  "top_mots": {
+    "négatif": {
+      "people": 1569,
+      "bjp": 1530,
+      "india": 1347,
+      "modi": 1321,
+      "other": 947,
+      "how": 908,
+      "don": 894,
+      "even": 819,
+      "now": 770,
+      "why": 765,
+      "these": 747,
+      "get": 736,
+      "any": 734,
+      "because": 682,
+      "congress": 672
+    },
+    "neutre": {
+      "same": 1016,
+      "modi": 836,
+      "bjp": 675,
+      "india": 591,
+      "hai": 541,
+      "lot": 433,
+      "why": 419,
+      "people": 396,
+      "how": 388,
+      "don": 384,
+      "now": 373,
+      "should": 356,
+      "time": 344,
+      "congress": 314,
+      "get": 310
+    },
+    "positif": {
+      "people": 3592,
+      "india": 3347,
+      "good": 3000,
+      "bjp": 2880,
+      "modi": 2838,
+      "how": 2049,
+      "don": 1929,
+      "now": 1902,
+      "even": 1829,
+      "get": 1724,
+      "any": 1617,
+      "think": 1599,
+      "because": 1557,
+      "right": 1504,
+      "other": 1465
+    }
+  }
+}
